@@ -48,6 +48,6 @@ public class Environment {
      */
     public void createVar(String key, Value v) {
         if(!env.containsKey(key)) env.put(key, v);
-        else throw RuntimeException;
+        else throw new RuntimeException();
     }
 }

@@ -47,6 +47,7 @@ public class Environment {
      * a RuntimeException is thrown.
      */
     public void createVar(String key, Value v) {
-        env.put(key, v);
+        if(!env.containsKey(key)) env.put(key, v);
+        else throw RuntimeException;
     }
 }

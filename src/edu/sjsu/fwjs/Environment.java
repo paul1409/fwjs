@@ -4,13 +4,14 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class Environment {
-    private Map<String,Value> env = new HashMap<String,Value>();
+    private Map<String, Value> env = new HashMap<String, Value>();
     private Environment outerEnv;
 
     /**
      * Constructor for global environment
      */
-    public Environment() {}
+    public Environment() {
+    }
 
     /**
      * Constructor for local environment of a function
@@ -27,8 +28,12 @@ public class Environment {
      * null is returned (similar to how JS returns undefined.
      */
     public Value resolveVar(String varName) {
-        if(env.containsKey(varname)) env.get(varname);
-        else return null;
+        if (env.containsKey(varName)) {
+            return env.get(varName);
+        } else if (outerEnv != null && outerEnv.env.containsKey(varName)){
+            return outerEnv.env.get(varName);
+        }else
+            return new NullVal();
     }
 
     /**
@@ -37,8 +42,13 @@ public class Environment {
      * or any of the function's outer scopes, the var is stored in the global scope.
      */
     public void updateVar(String key, Value v) {
-        if(env.containsKey(key)) env.put(key, v);
-        else outerenv.updateVar(key, v);
+        if (env.containsKey(key)) {
+            env.put(key,v);
+        } else
+            if(outerEnv != null) {
+                outerEnv.updateVar(key, v);
+            }else
+                env.put(key,v);
     }
 
     /**
@@ -47,7 +57,9 @@ public class Environment {
      * a RuntimeException is thrown.
      */
     public void createVar(String key, Value v) {
-        if(!env.containsKey(key)) env.put(key, v);
-        else throw new RuntimeException();
+        if(env.containsKey(key))
+            throw new RuntimeException("Exasting Value");
+        else
+            env.put(key,v);
     }
 }

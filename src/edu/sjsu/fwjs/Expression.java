@@ -90,9 +90,19 @@ class IfExpr implements Expression {
         this.thn = thn;
         this.els = els;
     }
-    public Value evaluate(Environment env) {
-        // YOUR CODE HERE
-        return null;
+   public Value evaluate(Environment env) {
+        BoolVal condBoolVal = (BoolVal) cond.evaluate(env);
+        env.updateVar(condBoolVal.toString(),condBoolVal);
+
+        if(condBoolVal.toBoolean()){
+            Value thnValue = thn.evaluate(env);
+            env.updateVar(thnValue.toString(),thnValue);
+            return thnValue;
+        }else {
+            Value elsValue = els.evaluate(env);
+            env.updateVar(elsValue.toString(),elsValue);
+            return elsValue;
+        }
     }
 }
 

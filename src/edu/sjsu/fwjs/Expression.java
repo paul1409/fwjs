@@ -77,11 +77,11 @@ class BinOpExpr implements Expression {
             case MULTIPLY: return (Integer) e1.evaluate(env) * (Integer) e2.evaluate(env);
             case DIVIDE: return (Double) ((Integer) e1.evaluate(env) / (Integer) e2.evaluate(env));
             case MOD: return (Integer) e1.evaluate(env) % (Integer) e2.evaluate(env);
-            case GT: return (Integer) e1.evaluate(env) + (Integer) e2.evaluate(env); //TODO
-            case GE: return (Integer) e1.evaluate(env) + (Integer) e2.evaluate(env);
-            case LT: return (Integer) e1.evaluate(env) + (Integer) e2.evaluate(env);
-            case LE: return (Integer) e1.evaluate(env) + (Integer) e2.evaluate(env);
-            case EQ: return (Integer) e1.evaluate(env) + (Integer) e2.evaluate(env);
+            case GT: return (Integer) e1.evaluate(env) > (Integer) e2.evaluate(env); //TODO
+            case GE: return (Integer) e1.evaluate(env) >= (Integer) e2.evaluate(env);
+            case LT: return (Integer) e1.evaluate(env) < (Integer) e2.evaluate(env);
+            case LE: return (Integer) e1.evaluate(env) <= (Integer) e2.evaluate(env);
+            case EQ: return (Integer) e1.evaluate(env) == (Integer) e2.evaluate(env);
             default: return null;
         }
     }

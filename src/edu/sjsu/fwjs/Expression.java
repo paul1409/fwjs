@@ -71,8 +71,12 @@ class BinOpExpr implements Expression {
 
     @SuppressWarnings("incomplete-switch")
     public Value evaluate(Environment env) {
+    	Value v1 = e1.evaluate(env); // Evaluates expression one and stores in Value
+    	Value v2 = e2.evaluate(env); 
+    	int x = ((IntVal)v1).toInt(); // Casting IntVal to turn v1 into an Int by calling toInt()
+    	int y = ((IntVal)v2).toInt();
         switch (op) {
-            case ADD: return (Integer) e1.evaluate(env) + (Integer) e2.evaluate(env);
+            case ADD: return new IntVal(x+y); // Adds two ints together and returns a value
             case SUBTRACT: return (Integer) e1.evaluate(env) - (Integer) e2.evaluate(env);
             case MULTIPLY: return (Integer) e1.evaluate(env) * (Integer) e2.evaluate(env);
             case DIVIDE: return (Double) ((Integer) e1.evaluate(env) / (Integer) e2.evaluate(env));

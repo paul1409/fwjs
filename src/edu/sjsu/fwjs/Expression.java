@@ -71,17 +71,20 @@ class BinOpExpr implements Expression {
 
     @SuppressWarnings("incomplete-switch")
     public Value evaluate(Environment env) {
+        IntVal v1 = (IntVal) this.e1.evaluate(env);
+        IntVal v2 = (IntVal) this.e2.evaluate(env);
+
         switch (op) {
-            case ADD: return (Integer) e1.evaluate(env) + (Integer) e2.evaluate(env);
-            case SUBTRACT: return (Integer) e1.evaluate(env) - (Integer) e2.evaluate(env);
-            case MULTIPLY: return (Integer) e1.evaluate(env) * (Integer) e2.evaluate(env);
-            case DIVIDE: return (Double) ((Integer) e1.evaluate(env) / (Integer) e2.evaluate(env));
-            case MOD: return (Integer) e1.evaluate(env) % (Integer) e2.evaluate(env);
-            case GT: return (Integer) e1.evaluate(env) > (Integer) e2.evaluate(env); //TODO
-            case GE: return (Integer) e1.evaluate(env) >= (Integer) e2.evaluate(env);
-            case LT: return (Integer) e1.evaluate(env) < (Integer) e2.evaluate(env);
-            case LE: return (Integer) e1.evaluate(env) <= (Integer) e2.evaluate(env);
-            case EQ: return (Integer) e1.evaluate(env) == (Integer) e2.evaluate(env);
+            case ADD: return new IntVal(v1.toInt() + v2.toInt());
+            case SUBTRACT: return new IntVal(v1.toInt() - v2.toInt());
+            case MULTIPLY: return new IntVal(v1.toInt() * v2.toInt());
+            case DIVIDE: return new IntVal(v1.toInt() / v2.toInt());
+            case MOD: return new IntVal(v1.toInt() % v2.toInt());
+            case GT: return new BoolVal(v1.toInt() > v2.toInt());
+            case GE: return new BoolVal(v1.toInt() >= v2.toInt());
+            case LT: return new BoolVal(v1.toInt() < v2.toInt());
+            case LE: return new BoolVal(v1.toInt() <= v2.toInt());
+            case EQ: return new BoolVal(v1.toInt() == v2.toInt());
             default: return null;
         }
     }
@@ -129,11 +132,8 @@ class WhileExpr implements Expression {
     public Value evaluate(Environment env) { //TODO incomplete
         BoolVal bool = (BoolVal) cond.evaluate(env);
         Value v = body.evaluate(env);
-        while (bool.toBoolean()) {
-            v = body.evaluate(env);
-            env.updateVar(v.toString(), v);
-        }
-        return v;
+        while(this.cond.evaluate(env).equals(new BoolVal(true))) this.body.evaluate(env);
+        return null;
     }
 }
 
@@ -182,8 +182,8 @@ class AssignExpr implements Expression {
         this.e = e;
     }
     public Value evaluate(Environment env) {
-        env.updateVar(varname, e.evaluate(env));
-        return null;
+        env.updateVar(varName, e.evaluate(env));
+        return env.resolveVar(varName);
     }
 }
 

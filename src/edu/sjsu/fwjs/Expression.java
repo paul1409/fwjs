@@ -71,6 +71,7 @@ class BinOpExpr implements Expression {
 
     @SuppressWarnings("incomplete-switch")
     public Value evaluate(Environment env) {
+<<<<<<< HEAD
         IntVal v1 = (IntVal) this.e1.evaluate(env);
         IntVal v2 = (IntVal) this.e2.evaluate(env);
 
@@ -85,6 +86,23 @@ class BinOpExpr implements Expression {
             case LT: return new BoolVal(v1.toInt() < v2.toInt());
             case LE: return new BoolVal(v1.toInt() <= v2.toInt());
             case EQ: return new BoolVal(v1.toInt() == v2.toInt());
+=======
+    	Value v1 = e1.evaluate(env); // Evaluates expression one and stores in Value
+    	Value v2 = e2.evaluate(env); 
+    	int x = ((IntVal)v1).toInt(); // Casting IntVal to turn v1 into an Int by calling toInt()
+    	int y = ((IntVal)v2).toInt();
+        switch (op) {
+            case ADD: return new IntVal(x+y); // Adds two ints together and returns a value
+            case SUBTRACT: return (Integer) e1.evaluate(env) - (Integer) e2.evaluate(env);
+            case MULTIPLY: return (Integer) e1.evaluate(env) * (Integer) e2.evaluate(env);
+            case DIVIDE: return (Double) ((Integer) e1.evaluate(env) / (Integer) e2.evaluate(env));
+            case MOD: return (Integer) e1.evaluate(env) % (Integer) e2.evaluate(env);
+            case GT: return (Integer) e1.evaluate(env) > (Integer) e2.evaluate(env); //TODO
+            case GE: return (Integer) e1.evaluate(env) >= (Integer) e2.evaluate(env);
+            case LT: return (Integer) e1.evaluate(env) < (Integer) e2.evaluate(env);
+            case LE: return (Integer) e1.evaluate(env) <= (Integer) e2.evaluate(env);
+            case EQ: return (Integer) e1.evaluate(env) == (Integer) e2.evaluate(env);
+>>>>>>> 621032fde8b336be9b29acf49c5ab4baaf0643ac
             default: return null;
         }
     }

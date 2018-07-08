@@ -1,5 +1,6 @@
 package edu.sjsu.fwjs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,7 +72,6 @@ class BinOpExpr implements Expression {
 
     @SuppressWarnings("incomplete-switch")
     public Value evaluate(Environment env) {
-<<<<<<< HEAD
         IntVal v1 = (IntVal) this.e1.evaluate(env);
         IntVal v2 = (IntVal) this.e2.evaluate(env);
 
@@ -86,23 +86,6 @@ class BinOpExpr implements Expression {
             case LT: return new BoolVal(v1.toInt() < v2.toInt());
             case LE: return new BoolVal(v1.toInt() <= v2.toInt());
             case EQ: return new BoolVal(v1.toInt() == v2.toInt());
-=======
-    	Value v1 = e1.evaluate(env); // Evaluates expression one and stores in Value
-    	Value v2 = e2.evaluate(env); 
-    	int x = ((IntVal)v1).toInt(); // Casting IntVal to turn v1 into an Int by calling toInt()
-    	int y = ((IntVal)v2).toInt();
-        switch (op) {
-            case ADD: return new IntVal(x+y); // Adds two ints together and returns a value
-            case SUBTRACT: return (Integer) e1.evaluate(env) - (Integer) e2.evaluate(env);
-            case MULTIPLY: return (Integer) e1.evaluate(env) * (Integer) e2.evaluate(env);
-            case DIVIDE: return (Double) ((Integer) e1.evaluate(env) / (Integer) e2.evaluate(env));
-            case MOD: return (Integer) e1.evaluate(env) % (Integer) e2.evaluate(env);
-            case GT: return (Integer) e1.evaluate(env) > (Integer) e2.evaluate(env); //TODO
-            case GE: return (Integer) e1.evaluate(env) >= (Integer) e2.evaluate(env);
-            case LT: return (Integer) e1.evaluate(env) < (Integer) e2.evaluate(env);
-            case LE: return (Integer) e1.evaluate(env) <= (Integer) e2.evaluate(env);
-            case EQ: return (Integer) e1.evaluate(env) == (Integer) e2.evaluate(env);
->>>>>>> 621032fde8b336be9b29acf49c5ab4baaf0643ac
             default: return null;
         }
     }
@@ -166,8 +149,8 @@ class SeqExpr implements Expression {
         this.e2 = e2;
     }
     public Value evaluate(Environment env) {
-        // YOUR CODE HERE
-        return null;
+        e1.evaluate(env);
+        return e2.evaluate(env);
     }
 }
 
@@ -182,8 +165,8 @@ class VarDeclExpr implements Expression {
         this.exp = exp;
     }
     public Value evaluate(Environment env) {
-        // YOUR CODE HERE
-        return null;
+        env.createVar(varName, exp.evaluate(env));
+        return env.resolveVar(varName);
     }
 }
 
@@ -216,8 +199,7 @@ class FunctionDeclExpr implements Expression {
         this.body = body;
     }
     public Value evaluate(Environment env) {
-        // YOUR CODE HERE
-        return null;
+        return new ClosureVal(params, body, env);
     }
 }
 
@@ -232,8 +214,10 @@ class FunctionAppExpr implements Expression {
         this.args = args;
     }
     public Value evaluate(Environment env) {
-        // YOUR CODE HERE
-        return null;
+        ArrayList<Value> evaluated = new ArrayList<>();
+        for(Expression arg: args) {evaluated.add(arg.evaluate(env));}
+        ClosureVal c = (ClosureVal) f.evaluate(env);
+        return c.apply(evaluated);
     }
 }
 

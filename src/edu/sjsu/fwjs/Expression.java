@@ -86,7 +86,7 @@ class BinOpExpr implements Expression {
             case LT: return new BoolVal(v1.toInt() < v2.toInt());
             case LE: return new BoolVal(v1.toInt() <= v2.toInt());
             case EQ: return new BoolVal(v1.toInt() == v2.toInt());
-            default: return null;
+            default: return new NullVal();
         }
     }
 }
@@ -128,7 +128,7 @@ class WhileExpr implements Expression {
     public Value evaluate(Environment env) {
         while (this.cond.evaluate(env).equals(new BoolVal(true))) 
             this.body.evaluate(env);
-        return null;
+        return new NullVal();
     }
 }
 

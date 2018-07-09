@@ -105,18 +105,13 @@ class IfExpr implements Expression {
         this.els = els;
     }
    public Value evaluate(Environment env) {
-        BoolVal condBoolVal = (BoolVal) cond.evaluate(env);
-        env.updateVar(condBoolVal.toString(),condBoolVal);
+        BoolVal condBoolVal = (BoolVal) this.cond.evaluate(env);
 
-        if (condBoolVal.toBoolean()) { 
-            Value thnValue = thn.evaluate(env);
-            env.updateVar(thnValue.toString(),thnValue);
-            return thnValue;
-        } else {
-            Value elsValue = els.evaluate(env);
-            env.updateVar(elsValue.toString(),elsValue);
-            return elsValue;
-        }
+        if (condBoolVal.toBoolean())
+            return this.thn.evaluate(env);
+        else if (!condBoolVal.toBoolean())
+            return this.els.evaluate(env);
+        else throw new RuntimeException("Boolean not entered");
     }
 }
 
@@ -130,10 +125,9 @@ class WhileExpr implements Expression {
         this.cond = cond;
         this.body = body;
     }
-    public Value evaluate(Environment env) { //TODO incomplete
-        BoolVal bool = (BoolVal) cond.evaluate(env);
-        Value v = body.evaluate(env);
-        while(this.cond.evaluate(env).equals(new BoolVal(true))) this.body.evaluate(env);
+    public Value evaluate(Environment env) {
+        while (this.cond.evaluate(env).equals(new BoolVal(true))) 
+            this.body.evaluate(env);
         return null;
     }
 }

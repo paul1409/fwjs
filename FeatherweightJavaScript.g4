@@ -5,14 +5,33 @@ grammar FeatherweightJavaScript;
 // Reserved words
 IF: 'if';
 ELSE: 'else';
+WHILE: 'while';
+FUNCTION: 'function';
+VAR: 'var';
+PRINT: 'print';
 
 // Literals
 INT: [1-9][0-9]* | '0';
+BOOL: 'true' | 'false';
+NULL: 'null';
 
 // Symbols
 MUL: '*';
 DIV: '/';
 SEPARATOR: ';';
+ADD: '+';
+SUB: '-';
+MOD: '%';
+LT: '<';
+GT: '>';
+LE: '<=';
+GE: '>=';
+EQ: '==';
+SET: '=';
+ARGSEP: ',';
+
+// Identifiers
+ID: [a-zA-Z|_][a-zA-Z|0-9|_]*;
 
 // Whitespace and comments
 NEWLINE: '\r'? '\n' -> skip;

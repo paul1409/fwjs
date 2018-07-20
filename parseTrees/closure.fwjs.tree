@@ -1,0 +1,1 @@
+(prog var makeCounter = function ( ) { var i = 0 ; function ( ) { i = i + 1 ; } ; } ; var ctr = makeCounter ( ) ; print ( ctr ( ) ) ; print ( ctr ( ) ) ; print ( ctr ( ) ) ; print ( ctr ( ) ) ;)

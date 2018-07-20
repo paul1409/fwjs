@@ -17,8 +17,10 @@ public class FeatherweightJavaScriptParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, IF=6, ELSE=7, INT=8, MUL=9, DIV=10, 
-		SEPARATOR=11, NEWLINE=12, LINE_COMMENT=13, WS=14;
+		T__0=1, T__1=2, T__2=3, T__3=4, IF=5, ELSE=6, WHILE=7, FUNCTION=8, VAR=9, 
+		PRINT=10, INT=11, BOOL=12, NULL=13, MUL=14, DIV=15, SEPARATOR=16, ADD=17, 
+		SUB=18, MOD=19, LT=20, GT=21, LE=22, GE=23, EQ=24, SET=25, ARGSEP=26, 
+		ID=27, NEWLINE=28, LINE_COMMENT=29, WS=30;
 	public static final int
 		RULE_prog = 0, RULE_stat = 1, RULE_expr = 2, RULE_block = 3;
 	public static final String[] ruleNames = {
@@ -26,12 +28,15 @@ public class FeatherweightJavaScriptParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'('", "')'", "'%'", "'{'", "'}'", "'if'", "'else'", null, "'*'", 
-		"'/'", "';'"
+		null, "'('", "')'", "'{'", "'}'", "'if'", "'else'", "'while'", "'function'", 
+		"'var'", "'print'", null, null, "'null'", "'*'", "'/'", "';'", "'+'", 
+		"'-'", "'%'", "'<'", "'>'", "'<='", "'>='", "'=='", "'='", "','"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, null, "IF", "ELSE", "INT", "MUL", "DIV", 
-		"SEPARATOR", "NEWLINE", "LINE_COMMENT", "WS"
+		null, null, null, null, null, "IF", "ELSE", "WHILE", "FUNCTION", "VAR", 
+		"PRINT", "INT", "BOOL", "NULL", "MUL", "DIV", "SEPARATOR", "ADD", "SUB", 
+		"MOD", "LT", "GT", "LE", "GE", "EQ", "SET", "ARGSEP", "ID", "NEWLINE", 
+		"LINE_COMMENT", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -332,7 +337,7 @@ public class FeatherweightJavaScriptParser extends Parser {
 					setState(41);
 					((MulDivModContext)_localctx).op = _input.LT(1);
 					_la = _input.LA(1);
-					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << MUL) | (1L << DIV))) != 0)) ) {
+					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MUL) | (1L << DIV) | (1L << MOD))) != 0)) ) {
 						((MulDivModContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 					}
 					else {
@@ -397,12 +402,12 @@ public class FeatherweightJavaScriptParser extends Parser {
 			setState(57);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__3:
+			case T__2:
 				_localctx = new FullBlockContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(48);
-				match(T__3);
+				match(T__2);
 				setState(52);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -418,7 +423,7 @@ public class FeatherweightJavaScriptParser extends Parser {
 					_la = _input.LA(1);
 				}
 				setState(55);
-				match(T__4);
+				match(T__3);
 				}
 				break;
 			case T__0:
@@ -462,23 +467,23 @@ public class FeatherweightJavaScriptParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20>\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\3\2\6\2\f\n\2\r\2\16\2\r\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3!\n\3\3\4\3\4\3\4\3\4\3"+
-		"\4\3\4\5\4)\n\4\3\4\3\4\3\4\7\4.\n\4\f\4\16\4\61\13\4\3\5\3\5\7\5\65\n"+
-		"\5\f\5\16\58\13\5\3\5\3\5\5\5<\n\5\3\5\2\3\6\6\2\4\6\b\2\3\4\2\5\5\13"+
-		"\f\2@\2\13\3\2\2\2\4 \3\2\2\2\6(\3\2\2\2\b;\3\2\2\2\n\f\5\4\3\2\13\n\3"+
-		"\2\2\2\f\r\3\2\2\2\r\13\3\2\2\2\r\16\3\2\2\2\16\3\3\2\2\2\17\20\5\6\4"+
-		"\2\20\21\7\r\2\2\21!\3\2\2\2\22\23\7\b\2\2\23\24\7\3\2\2\24\25\5\6\4\2"+
-		"\25\26\7\4\2\2\26\27\5\b\5\2\27\30\7\t\2\2\30\31\5\b\5\2\31!\3\2\2\2\32"+
-		"\33\7\b\2\2\33\34\7\3\2\2\34\35\5\6\4\2\35\36\7\4\2\2\36\37\5\b\5\2\37"+
-		"!\3\2\2\2 \17\3\2\2\2 \22\3\2\2\2 \32\3\2\2\2!\5\3\2\2\2\"#\b\4\1\2#)"+
-		"\7\n\2\2$%\7\3\2\2%&\5\6\4\2&\'\7\4\2\2\')\3\2\2\2(\"\3\2\2\2($\3\2\2"+
-		"\2)/\3\2\2\2*+\f\5\2\2+,\t\2\2\2,.\5\6\4\6-*\3\2\2\2.\61\3\2\2\2/-\3\2"+
-		"\2\2/\60\3\2\2\2\60\7\3\2\2\2\61/\3\2\2\2\62\66\7\6\2\2\63\65\5\4\3\2"+
-		"\64\63\3\2\2\2\658\3\2\2\2\66\64\3\2\2\2\66\67\3\2\2\2\679\3\2\2\28\66"+
-		"\3\2\2\29<\7\7\2\2:<\5\4\3\2;\62\3\2\2\2;:\3\2\2\2<\t\3\2\2\2\b\r (/\66"+
-		";";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3 >\4\2\t\2\4\3\t\3"+
+		"\4\4\t\4\4\5\t\5\3\2\6\2\f\n\2\r\2\16\2\r\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3!\n\3\3\4\3\4\3\4\3\4\3\4"+
+		"\3\4\5\4)\n\4\3\4\3\4\3\4\7\4.\n\4\f\4\16\4\61\13\4\3\5\3\5\7\5\65\n\5"+
+		"\f\5\16\58\13\5\3\5\3\5\5\5<\n\5\3\5\2\3\6\6\2\4\6\b\2\3\4\2\20\21\25"+
+		"\25\2@\2\13\3\2\2\2\4 \3\2\2\2\6(\3\2\2\2\b;\3\2\2\2\n\f\5\4\3\2\13\n"+
+		"\3\2\2\2\f\r\3\2\2\2\r\13\3\2\2\2\r\16\3\2\2\2\16\3\3\2\2\2\17\20\5\6"+
+		"\4\2\20\21\7\22\2\2\21!\3\2\2\2\22\23\7\7\2\2\23\24\7\3\2\2\24\25\5\6"+
+		"\4\2\25\26\7\4\2\2\26\27\5\b\5\2\27\30\7\b\2\2\30\31\5\b\5\2\31!\3\2\2"+
+		"\2\32\33\7\7\2\2\33\34\7\3\2\2\34\35\5\6\4\2\35\36\7\4\2\2\36\37\5\b\5"+
+		"\2\37!\3\2\2\2 \17\3\2\2\2 \22\3\2\2\2 \32\3\2\2\2!\5\3\2\2\2\"#\b\4\1"+
+		"\2#)\7\r\2\2$%\7\3\2\2%&\5\6\4\2&\'\7\4\2\2\')\3\2\2\2(\"\3\2\2\2($\3"+
+		"\2\2\2)/\3\2\2\2*+\f\5\2\2+,\t\2\2\2,.\5\6\4\6-*\3\2\2\2.\61\3\2\2\2/"+
+		"-\3\2\2\2/\60\3\2\2\2\60\7\3\2\2\2\61/\3\2\2\2\62\66\7\5\2\2\63\65\5\4"+
+		"\3\2\64\63\3\2\2\2\658\3\2\2\2\66\64\3\2\2\2\66\67\3\2\2\2\679\3\2\2\2"+
+		"8\66\3\2\2\29<\7\6\2\2:<\5\4\3\2;\62\3\2\2\2;:\3\2\2\2<\t\3\2\2\2\b\r"+
+		" (/\66;";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -1,0 +1,1 @@
+(prog var x = 0 ; / * Setting x to 0 * / x = 3 + 4 ; y = true ; / * y z are booleans * / z = false ; y ; print ( x ) ; print ( y ) ;)

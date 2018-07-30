@@ -1,0 +1,1 @@
+(prog (stat (expr var i = (expr 0)) ;))

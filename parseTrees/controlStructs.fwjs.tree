@@ -1,0 +1,1 @@
+(prog (stat (expr x = (expr false)) ;) (stat if ( (expr x) ) (block { (stat (expr a = (expr 1)) ;) }) else (block { (stat (expr a = (expr 2)) ;) })))

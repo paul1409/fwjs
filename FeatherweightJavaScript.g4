@@ -37,6 +37,7 @@ ID: [a-zA-Z|_][a-zA-Z|0-9|_]*;
 NEWLINE: '\r'? '\n' -> skip;
 LINE_COMMENT: '//' ~[\n\r]* -> skip;
 WS: [ \t]+ -> skip; // ignore whitespace
+BLOCK_COMMENT: '/*' .*? '*/' -> skip; //ignore block
 
 // ***Paring rules ***
 
@@ -49,9 +50,21 @@ stat:
 	| IF '(' expr ')' block				# ifThen;
 
 expr:
-	expr op = ('*' | '/' | '%') expr	# MulDivMod
-	| INT								# int
-	| '(' expr ')'						# parens;
+	expr op = ('*' | '/' | '%') expr					# MulDivMod
+	| expr op = ( '+' | '-') expr						# AddSub
+	| expr op = ('<' | '<=' | '>' | '>=' | '==') expr	# compare
+	| FUNCTION params '{' stat* '}'						# functionDecl
+	| expr args											# functionAppl
+	| INT												# int
+	| VAR ID (op = '=' expr)?							# varDecl
+	| ID												# varRef
+	| ID op = '=' expr									# assign
+	| (INT | BOOL | NULL)								# constant
+	| '(' expr ')'										# parens;
+
+args: '(' (expr (',' expr)*)? ')' # arguments;
+
+params: '(' (ID (',' ID)*)? ')' # parameters;
 
 block: '{' stat* '}' # fullBlock | stat # simpBlock;
 

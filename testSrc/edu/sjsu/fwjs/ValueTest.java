@@ -13,4 +13,11 @@ public class ValueTest {
         assertEquals(tr, tr2);
     }
 
+    @Test
+    public void testassignVal() {
+        IntVal i = new IntVal(3);
+        IntVal j = new IntVal(4);
+        assertEquals(i, 3);
+    }
+
 }
